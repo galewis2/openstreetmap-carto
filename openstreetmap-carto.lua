@@ -315,6 +315,11 @@ end
 
 -- Filtering on nodes
 function filter_tags_node (keyvalues, numberofkeys)
+    if keyvalues["name:en"] and keyvalues["name"] then
+        if keyvalues["name"] ~= keyvalues["name:en"] then
+            keyvalues["name"] = keyvalues["name"].."\n("..keyvalues["name:en"]..")"
+        end
+    end
     return filter_tags_generic(keyvalues)
 end
 
@@ -331,6 +336,12 @@ function filter_basic_tags_rel (keyvalues, numberofkeys)
         return 1, keyvalues
     end
 
+    if keyvalues["name:en"] and keyvalues["name"] then
+        if keyvalues["name"] ~= keyvalues["name:en"] then
+            keyvalues["name"] = keyvalues["name"].."\n("..keyvalues["name:en"]..")"
+        end
+    end
+    
     return 0, keyvalues
 end
 
@@ -350,6 +361,12 @@ function filter_tags_way (keyvalues, numberofkeys)
     -- Add z_order column
     keyvalues["z_order"] = z_order(keyvalues)
 
+    if keyvalues["name:en"] and keyvalues["name"] then
+        if keyvalues["name"] ~= keyvalues["name:en"] then
+            keyvalues["name"] = keyvalues["name"].."\n("..keyvalues["name:en"]..")"
+        end
+    end
+    
     return filter, keyvalues, polygon, roads(keyvalues)
 end
 
